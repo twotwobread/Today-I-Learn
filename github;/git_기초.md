@@ -19,8 +19,8 @@ __git log__ 를 통해 log를 볼 수 있다. 작성자, 일시, 수행한 내�
 
 <img src="https://user-images.githubusercontent.com/78334910/148050388-ce686633-2239-420f-a389-d1078e967cef.PNG">
 __git commit <"option"> "메세지"__  
-옵션 -m : vim에서 별도의 메세지를 작성할 필요없이 인라인 형식으로 바로 커밋 메세지 작성  
-옵션 -a : 별도의 add 명령어를 사용하지 않고 수정된 파일에 대해 add, commit을 한번에 수행 (단, Untracked file일 경우 add를 따로 해줘야함)
+- m : vim에서 별도의 메세지를 작성할 필요없이 인라인 형식으로 바로 커밋 메세지 작성  
+- a : 별도의 add 명령어를 사용하지 않고 수정된 파일에 대해 add, commit을 한번에 수행 (단, Untracked file일 경우 add를 따로 해줘야함)
 - git add를 하면 작업 공간의 파일들을 준비 영역에 추가한다.
 - git commit은 로컬 저장소에 최종 저장하는 단계이다.
 - 이후 __git push origin <branch명>__ 를 통해서 로컬 저장소의 파일들을 원격 저장소로 올린다.
