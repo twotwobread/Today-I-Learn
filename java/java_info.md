@@ -111,3 +111,57 @@ for(int i = 0; i<10; i++){
           public static final double PI = 3.141592; // 상수명은 대문자
       }
       ```
+## 상속에 대하여
+- 상위 클래스의 특성 ( 멤버 변수/메소드 )을 하위 클래스에 물려주는 것.
+- 부모 클래스/수퍼 클래스(superclass)/기본(base) 클래스
+  + 특성을 물려주는 상위 클래스
+- 자식 클래스/ 서브 클래스(subclass)/파생(derived) 클래스
+  + 특성을 물려받는 하위 클래스
+- 자신은 부모 클래스의 특성을 수정할 수 있음 -> 오버라이딩
+- 상속이 될수록 기능이 구체화된다. 부모의 기능은 반복 기술하지 않아도 계승된다.
+- 상속 구조를 잘 설계하면 중복 코드가 크게 감소한다.
+- 상속 선언
+  ```java
+  class Person {...}
+  class Student extends Person {...} // Person을 상속받는 클래스 Student 선언
+  class StudentWorker extends Student {...} // Student를 상속바든 StudentWorker 선언
+  ```
+- JAVA 상속의 특징
+  + 상속의 최상위 클래스는 java.lang.* 패키지의 object 클래스
+    - 모든 클래스는 자동으로 java.lang.Object 상속
+  + 다중 상속 지원하지 않음
+    - 여러 클래스를 동시에 상속받지 못함 (예: class A extends B, C(X))
+- JAVA 상속 계층 구조
+  ![자바의+클래스+계층+구조+자바에서는+모든+클래스는+반드시+java lang Object+클래스를+자동으로+상속받는다](https://user-images.githubusercontent.com/78334910/150274809-e3ef41a5-7294-4da2-bd32-fafe0f8450fd.jpg)
+- 자바는 상속을 받았을때 오버라이드를 하면 visibility를 줄일 수 없음(public을 super 클래스에서 붙였으면 그대로 붙여야함.)
+- super()를 이용하여 명시적 호출을 하지 않으면 default 생성자를 부르게 된다.
+- 상속에서의 다형성에 관한 내용
+  + 객체의 타입 변환
+    - 업캐스팅(upcasting) : 자식 클래스의 객체를 부모 클래스 레퍼런스로 가리킴.
+      + 객체의 모든 멤버를 접근할 수 없고 부모 클래스 멤버에만 접근 가능
+      ```java
+      class Person{}
+      class Student extends Person {}
+      Student s = new Student();
+      Person p = s; // 업캐스팅, 자동타입변환
+      ```
+    - 다운캐스팅 : 부모 클래스 레퍼런스로 가리키던 자식 객체를, 원래대로 자식 클래스 레퍼런스가 가리키도록 하는 것
+      + 명시적으로 타입지정, 다시 자식 객체의 모든 멤버 접근 가능
+        ```java
+        class Person {}
+        class Student extends Person {}
+        Person p = new Student();
+        Student s = (Student) p; // 다운캐스팅, 강제 타입변환
+        ```
+    - 업캐스팅된 객체를 구별하기 위한 instanceof 연산자
+      + 레퍼런스가 가리키는 객체의 진짜 타입 식별
+      + 가능한 클래스 이름을 미리 알고 있어야 한다.
+    - 클래스 이름 얻기 위한 Object->Class->getSimpleName()
+      + 모든 객체는 Object 클래스 상속
+      + Object.getClass() 메소드로 Object 객체의 멤버인 Class 객체에 접근
+      + Object.getClass().getSimpleName() 메소드로 객체의 클래스 이름 알 수 있음.
+      + Object.getClass().getName()은 패키지 이름과 함께 알려준다.
+    - 메소드 오버라이딩 : 부모 클래스의 메소드를 자식 클래스에서 재정의
+      - 객체 생성 -> 업캐스팅 -> 오버라이딩된 메소드 호출
+        + 업캐스팅했으니 부모 클래스의 메소드가 호출될 것으로 예상
+        + 놀랍게도 자식 클래스의 메소드가 실행됨.
