@@ -30,7 +30,7 @@ public class test {
 
             while(true) {
                 boolean primeCheck = true;
-                synchronized (this) { // critical section
+                synchronized (this.primeArray) { // critical section
                     if (primeArray.size() >= 10000) { // 쓰레드 종류 조건문
                         System.out.println(name + "번째 스레드가 길이를 만족하여 종료되었습니다.");
                         break;
@@ -45,7 +45,7 @@ public class test {
                     }
                 }
                 if (primeCheck == true) { // 소수인 경우
-                    synchronized (this) { // critical section
+                    synchronized (this.primeArray) { // critical section
                         if (primeArray.size() <= 0) { // 공유변수 배열이 비어있는 경우 즉 2인 경우라서 값을 add
                             primeArray.add(num);
                         } else { // 2이상인 경우
@@ -86,3 +86,6 @@ public class test {
 
 // 소수 저장 시 똑같은 수가 삽입되는 경우 발생
 // 싱크로나이즈로 크리티컬 섹션을 관리했는데 이유를 찾아봐야할 것 같음.
+// 위에서 싱크로나이즈를 this로 걸었는데 그렇게 되면 this라는 객체에 싱크로나이즈를 걸게된다.
+// 자기자신을 크리티컬 섹션으로 생각하고 관리를 하게 되면 10개의 스레드 모두가 당연히 들어갈 수 있게 된다.
+// 그래서 공유하는 변수를 크리티컬 섹션으로 생각하고 관리를 해야하므로 this.primeArray로 바꾸면 된다.
