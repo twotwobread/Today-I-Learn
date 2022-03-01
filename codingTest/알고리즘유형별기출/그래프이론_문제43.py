@@ -45,9 +45,8 @@ edge.sort()
 result = 0
 for e in edge:
     z, x, y = e
-    if FindParent(x, parent) == FindParent(y, parent):
-        continue
-    UnionParent(x, y, parent)
-    result += z
+    if FindParent(x, parent) != FindParent(y, parent):
+        UnionParent(x, y, parent)
+        result += z
 
 print(sum - result)
