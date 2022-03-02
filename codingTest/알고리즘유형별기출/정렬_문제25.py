@@ -1,45 +1,42 @@
-# 해결못함 내일 시도할 예정.
-# value, notClear = 도전중인 사람 -> 즉, 현재 스테이지 머물러 있는 사람의 수를 나타냄.
-# array = 이걸로 이제 정렬을 할려고 했음, 스테이지 정보를 나타냈다.
-# 그래서 array를 이용해서 정렬을 시도 비교하는 값은 value를 이용해서 도전중인 사람 / 시도한 사람 으로 했음.
-# 같으면 스테이즈 숫자가 작은것이 먼저 오도록 해야함.
-
-
-def quickSort(array, start, end, value):
-    if start>=end:
-        return array
-    pivot = array[start]
-    pivotValue = value[pivot] / sum(value[pivot:len(value)]) # 도전중인 사람 / 시도한 사람
-    tail = array[start+1:]
-    left = []
-    right = []
-    for i in tail:
-        if pivotValue == (value[i] / sum(value[i:len(value)])):
-            if pivot > i :
-                left.append(i)
-            else:
-                right.append(i)
-        elif pivotValue > (value[i] / sum(value[i:len(value)])):
-            left.append(i)
-        else:
-            right.append(i)
-    return quickSort(left, 0, len(left)-1, value) + [pivot] + quickSort(right, 0, len(right)-1, value)
-
-
+def quickSorting(array, start, end):
+    if start >= end:
+        return
+    pivot = (start+end)//2
+    pivotValue = array[pivot][0]
+    pivotIndex = array[pivot][1]
+    array[pivot], array[end] = array[end], array[pivot]
     
+    newPivot = start
+    for i in range(start, end):
+        if pivotValue < array[i][0]:
+            array[i], array[newPivot] = array[newPivot], array[i]
+            newPivot += 1
+        elif pivotValue == array[i][0]:
+            if pivotIndex > array[i][1]:
+                array[i], array[newPivot] = array[newPivot], array[i]
+                newPivot += 1
+    
+    array[end], array[newPivot] = array[newPivot], array[end]
+    quickSorting(array, start, newPivot-1)
+    quickSorting(array, newPivot+1, end)
+    return array
 
 def solution(N, stages):
     answer = []
     notClear = [0] * (N+2)
-    array = [0] * (N+1)
-    for i in range(N+1):
-        array[i] = i
-    for i in stages: # 몇개인지 다 세아렸음.
-        notClear[i] += 1
-    result = quickSort(array, 1, len(array)-1, notClear)
-    print(result)
+    failPercent = [[0] for _ in range(N+1)]
+    # 머무르고 있는 사람의 정보
+    for s in stages:
+        notClear[s] += 1
+    # 스테이지 돌면서 실패율 계산
+    for i in range(1, N+1):
+        failPercent[i][0] = notClear[i] / sum(notClear[i+1:])
+        failPercent[i].append(i)
+    array = quickSorting(failPercent[1:], 0, len(failPercent[1:])-1)
+    for i in range(N):
+        answer.append(array[i][1])
     return answer
 
-n = 5
-stages = [2, 1, 2, 6, 2, 4, 3, 3]
-result = solution(n, stages)
+# 문제는 런타임 에러가 발생하는 것이다.
+# 나는 정렬에서 대부분 런타임 에러가 걸려서 실패하는 경우가 너무 많다.
+# 이 부분을 스터디에서 질문을 해봐야할 것 같다.
