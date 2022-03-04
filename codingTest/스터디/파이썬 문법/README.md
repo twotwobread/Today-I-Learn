@@ -1,10 +1,10 @@
 # 파이썬 문법 공부하기
-- [lambda 함수](###lambda-함수(익명함수))
-- [map 함수](###map-함수)
-- [filter 함수](###filter-함수)
-- [reduce 함수](###reduce-함수)  
-- [zip 함수](###zip-함수)
-- [join 함수](###join-함수)  
+- [lambda 함수](#lambda-함수(익명함수))
+- [map 함수](#map-함수)
+- [filter 함수](#filter-함수)
+- [reduce 함수](#reduce-함수)  
+- [zip 함수](#zip-함수)
+- [join 함수](#join-함수)  
 
 ---
 ### lambda 함수(익명함수)
