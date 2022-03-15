@@ -58,6 +58,9 @@
 # count = countNumber()
 # print(count)
 
+from turtle import pos
+
+
 def binarySearch(power, left, right, goal):
     while left < right:
         mid = (left+right)//2
@@ -75,20 +78,30 @@ power = list(map(int, input().split(" ")))
 
 L = [power[0]]
 compare = 0
-length = []
+length = [0]
 for p in power[1:]:
-    #print("power = ", p)
     if L[compare] > p:
         L.append(p)
         compare = compare + 1
+        length.append(compare)
     else:
-        L[binarySearch(L, 0, compare, p)] = p
-    #print("compare = ", compare, "\nL = ", L)
-    #print()
+        pos = binarySearch(L, 0, compare, p)
+        L[pos] = p
+        length.append(pos)
 
+# LIS 길이 뿐만 아니라 수열도 찾는 부분
+find = len(L)-1
+result = []
+for i in range(len(power)-1,-1,-1):
+    if length[i] == find:
+        result.append(str(power[i]))
+        find = find - 1
+
+print(" ".join(result[::-1]))
 print(n-len(L))
 
-# LIS를 이용하는 문제
-# 처음엔 BFS를 이용하여 풀려고 하였으나 메모리 초과가 발생.
-# DP 문제 중에 LIS, LCS는 많이 쓰인다.
-# 잘 알고 있는 것이 좋을 듯 하다.
+# 처음에는 BFS를 이용하여 문제를 풀려고 하였으나
+# 메모리 초과로 인해 전환
+# LIS 이용하는 문제
+# DP 문제에서 LCS와 함께 자주 사용
+# 
