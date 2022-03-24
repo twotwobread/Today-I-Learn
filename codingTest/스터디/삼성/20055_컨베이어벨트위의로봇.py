@@ -28,38 +28,40 @@
 # 위에 과정 그대로 구현하면 될 듯
 def moveBelt(n, A, robot):
     # 컨베이어 위치 바꾸는 부분
+    index = -1
     temp = A.pop()
     A.insert(0, temp)
     # 로봇 올라간 위치도 바꿔야함.
     for r in range(len(robot)):
         move = (robot[r]+1)%(2*n)
         robot[r] = move
+        if move == (n-1):
+            index = r
+    if index != -1:
+        robot.pop(index)
     return A
 
 def solution(n, k, A):
     durNum = 0 # 내구도 0인 칸 개수
     robot = [] # 로봇이 어디 올라가있는지, 올라간 순서 확인
     level = 0
-    print("시작할 때 모습 : ", A)
     while durNum < k: # 4. 내구도 개수가 k개가 되면 종료
         level += 1
-        print("현재 레벨 : ", level)
-        print("컨베이어 전 로봇의 상태 : ", robot)
         # 1.컨베이어 돌리기
         A = moveBelt(n, A, robot)
-        print("컨베이어를 돌린 후의 모습 : ", A)
-        print("컨베이어 위 이동 전 로봇의 상태 : ", robot)
         # 2.가장 먼저 올라간 로봇부터 이동하기
+        index = -1
         for r in range(len(robot)):
             move = (robot[r]+1)%(2*n)
             if not move in robot and A[move] > 0: # 로봇이 없고 내구도가 0 이상
                 robot[r] = move
                 A[move] -= 1
+                if move == (n-1):
+                    index = r
                 if A[move] == 0:
                     durNum += 1
-        print("컨베이어 위 이동 후 로봇의 상태 : ", robot)
-        print("로봇이 이동 후의 모습 : ", A)
-
+        if index != -1:
+            robot.pop(index)
         # 3. 올리는 위치에 있는 칸의 내구도가 0이 아니면 올린다.
         if A[0] > 0:
             if robot and 0 in robot: # 그리고 0번째 칸에 로봇이 존재하면 안올린다.
@@ -68,8 +70,6 @@ def solution(n, k, A):
             A[0] -= 1
             if A[0] == 0:
                 durNum += 1
-        print("올리는 위치에 올린 모습 : ", A)
-        print()
     return level
         
 
