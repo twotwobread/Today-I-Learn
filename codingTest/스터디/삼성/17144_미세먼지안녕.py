@@ -54,20 +54,18 @@ def solution(r,c,t,A):
                 if 0<=adj_x<r and 0<=adj_y<c and A[adj_x][adj_y] != -1:
                     A[adj_x][adj_y] += diffu
                     A[row][col] -= diffu
-        print()
-        print(t, "초 전의 상태 : ")  
-        for i in range(r):
-            for j in range(c):
-                print(A[i][j], end=" ")
-                #if A[i][j] != -1 and A[i][j] != 0 and not (i, j, A[i][j]) in dusk:
-                #    print(i, j, A[i][j], "가 안들어있음.")
-            print()
-        print()
-        # 2. 공기청정기 작동.
+        # print()
+        # print(t, "초 전의 상태 : ")  
+        # for i in range(r):
+        #     for j in range(c):
+        #         print(A[i][j], end=" ")
+        #     print()
+        # print()
+        # # 2. 공기청정기 작동.
         count = 0
         check = [-1,-1]
+        temp = -1
         for i in range(r):
-            temp = -1
             for j in range(c):
                 value = -1
                 if check[0] != -1 and check[1] != -1 and i == check[0] and j == check[1]:
@@ -118,8 +116,12 @@ def solution(r,c,t,A):
                         
                     if 0<=next_x<r and 0<=next_y<c:
                         if A[next_x][next_y] == -1:
-                            count -= A[i][j]
-                            A[i][j] = 0
+                            if value == -1:
+                                count -= A[i][j]
+                                A[i][j] = 0
+                            else:
+                                pass
+                            next_x, next_y = -1, -1
                             continue
 
                         if A[next_x][next_y] != 0:
@@ -134,15 +136,19 @@ def solution(r,c,t,A):
                             A[i][j] = 0
                         next_x, next_y = -1, -1 
         # print(dusk)
-        print()
-        print(t, "초 후의 상태 : ")  
-        for i in range(r):
-            for j in range(c):
-                print(A[i][j], end=" ")
-                #if A[i][j] != -1 and A[i][j] != 0 and not (i, j, A[i][j]) in dusk:
-                #    print(i, j, A[i][j], "가 안들어있음.")
-            print()
-        print()
+        # print()
+        # print(t, "초 후의 상태 : ")  
+        # for i in range(r):
+        #     for j in range(c):
+        #         print(A[i][j], end=" ")
+        #     print()
+        # print()
+    sibal = 0
+    for i in range(r):
+        for j in range(c):
+            if A[i][j] != -1:
+                sibal += A[i][j]
+    #print("sibal = ", sibal)
     return count
 
 if __name__ == "__main__":
