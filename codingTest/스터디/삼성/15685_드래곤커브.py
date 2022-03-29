@@ -17,19 +17,24 @@
 
 dx = (0, -1, 0, 1) # 오, 위, 좌, 아래
 dy = (1, 0, -1, 0)
-direction = [(1,0,3,2), (2,3,0,1), (3,2,1,0), (0,1,2,3)]
+#direction = [(1,0,3,2), (2,3,0,1), (3,2,1,0), (0,1,2,3)]
 
 def solution(n, dragon):
     G_dragon = []
-    direct = 3
     for curve in dragon:
         x, y, d, g = curve
-        # 첫 좌표와 0세대 좌표 넣기
-        G_dragon.append((x, y, direct)
-        G_dragon.append(())
+        direct = -1
+        # 첫 좌표 넣기
+        G_dragon.append((x, y, direct))
+        direct = d
+        # 0세대 좌표 넣기
+        #G_dragon.append((x+dy[standard[direct]], y+dx[standard[direct]],direct))
+        # 다음세대 좌표 넣기
         for i in range(g):
-            pass
-
+            temp = [] # 추가되는 좌표를 위함.
+            standard = direction[direct]
+            for j in range(len(G_dragon)-1, 0, -1): # 현재 좌표부터 최초 좌표 전까지
+                direct = G_dragon[j][2] # direct를 가져옴.
 if __name__ == "__main__":
     # n 입력
     n = int(input())
